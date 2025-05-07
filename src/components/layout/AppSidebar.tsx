@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { Home, Building, Energy, User, Settings, Chart } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Home, Building, Power, User, Settings, BarChart } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 interface NavItemProps {
   icon: React.ElementType;
@@ -30,8 +30,8 @@ const NavItem: React.FC<NavItemProps> = ({ icon: Icon, label, active, href }) =>
 };
 
 const AppSidebar: React.FC = () => {
-  // This would come from router in a real app
-  const currentPath = '/';
+  const location = useLocation();
+  const currentPath = location.pathname;
   
   return (
     <aside className="w-64 bg-sidebar flex flex-col border-r border-gray-800">
@@ -48,8 +48,8 @@ const AppSidebar: React.FC = () => {
       <nav className="space-y-1 px-3 py-2">
         <NavItem icon={Home} label="Dashboard" active={currentPath === '/'} href="/" />
         <NavItem icon={Building} label="Unit Manager" active={currentPath === '/units'} href="/units" />
-        <NavItem icon={Chart} label="Maintenance AI" active={currentPath === '/maintenance'} href="/maintenance" />
-        <NavItem icon={Energy} label="Energy & Utilities" active={currentPath === '/energy'} href="/energy" />
+        <NavItem icon={BarChart} label="Maintenance AI" active={currentPath === '/maintenance'} href="/maintenance" />
+        <NavItem icon={Power} label="Energy & Utilities" active={currentPath === '/energy'} href="/energy" />
         <NavItem icon={User} label="Tenant Portal" active={currentPath === '/tenants'} href="/tenants" />
       </nav>
       
@@ -59,7 +59,7 @@ const AppSidebar: React.FC = () => {
       
       <nav className="space-y-1 px-3 py-2">
         <NavItem icon={Settings} label="Admin Dashboard" active={currentPath === '/admin'} href="/admin" />
-        <NavItem icon={Chart} label="Simulation Engine" active={currentPath === '/simulation'} href="/simulation" />
+        <NavItem icon={BarChart} label="Simulation Engine" active={currentPath === '/simulation'} href="/simulation" />
       </nav>
       
       <div className="mt-auto p-4">

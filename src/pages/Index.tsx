@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Building, User, Gauge, Chart, Power, Water } from 'lucide-react';
+import { Building, User, Gauge, BarChart, Power, Droplet } from 'lucide-react';
 import AppLayout from '../components/layout/AppLayout';
 import CityGrid from '../components/dashboard/CityGrid';
 import StatusCard from '../components/dashboard/StatusCard';
@@ -81,7 +80,7 @@ const mockActions = [
   { id: '1', title: 'Add Building', icon: Building, color: 'bg-simcity-blue' },
   { id: '2', title: 'Add Tenant', icon: User, color: 'bg-simcity-teal' },
   { id: '3', title: 'Energy Report', icon: Power, color: 'bg-simcity-green' },
-  { id: '4', title: 'Water Usage', icon: Water, color: 'bg-simcity-orange' }
+  { id: '4', title: 'Water Usage', icon: Droplet, color: 'bg-simcity-orange' }
 ] as any[];
 
 const Index = () => {
@@ -122,7 +121,7 @@ const Index = () => {
         <StatusCard 
           title="Maintenance Requests" 
           value={12} 
-          icon={Chart} 
+          icon={BarChart} 
           status="critical"
           trend={8}
         />
