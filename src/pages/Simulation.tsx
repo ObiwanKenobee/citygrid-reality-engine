@@ -8,8 +8,41 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 // Simulation types
 type SimulationType = 'occupancy' | 'energy' | 'maintenance' | 'revenue';
 
-// Mock simulation results
-const mockSimulationResults = {
+// Define specific result types for each simulation category
+type OccupancyResult = {
+  currentRate: number;
+  projectedRate: number;
+  roi: number;
+  timeframe: string;
+  recommendation: string;
+};
+
+type EnergyResult = {
+  currentUsage: string;
+  projectedSavings: string;
+  roi: number;
+  timeframe: string;
+  recommendation: string;
+};
+
+type MaintenanceResult = {
+  currentExpense: string;
+  projectedSavings: string;
+  roi: number;
+  timeframe: string;
+  recommendation: string;
+};
+
+type RevenueResult = {
+  currentRevenue: string;
+  projectedIncrease: string;
+  roi: number;
+  timeframe: string;
+  recommendation: string;
+};
+
+// Mock simulation results with proper typing
+const mockSimulationResults: Record<SimulationType, OccupancyResult | EnergyResult | MaintenanceResult | RevenueResult> = {
   occupancy: {
     currentRate: 87,
     projectedRate: 92,
@@ -80,6 +113,34 @@ const Simulation = () => {
   };
 
   const result = mockSimulationResults[activeSimulation];
+
+  // Helper function to get current value based on simulation type
+  const getCurrentValue = () => {
+    switch(activeSimulation) {
+      case 'occupancy':
+        return (result as OccupancyResult).currentRate;
+      case 'energy':
+        return (result as EnergyResult).currentUsage;
+      case 'maintenance':
+        return (result as MaintenanceResult).currentExpense;
+      case 'revenue':
+        return (result as RevenueResult).currentRevenue;
+    }
+  };
+  
+  // Helper function to get projected value based on simulation type
+  const getProjectedValue = () => {
+    switch(activeSimulation) {
+      case 'occupancy':
+        return `${(result as OccupancyResult).projectedRate}%`;
+      case 'energy':
+        return (result as EnergyResult).projectedSavings;
+      case 'maintenance':
+        return (result as MaintenanceResult).projectedSavings;
+      case 'revenue':
+        return (result as RevenueResult).projectedIncrease;
+    }
+  };
 
   return (
     <AppLayout>
@@ -227,11 +288,11 @@ const Simulation = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="glass-card p-4 rounded-lg">
                       <div className="text-xs text-gray-400 mb-1">Current</div>
-                      <div className="text-xl font-bold">{result.currentRate || result.currentUsage || result.currentExpense || result.currentRevenue}</div>
+                      <div className="text-xl font-bold">{getCurrentValue()}</div>
                     </div>
                     <div className="glass-card p-4 rounded-lg">
                       <div className="text-xs text-gray-400 mb-1">Projected</div>
-                      <div className="text-xl font-bold text-simcity-green">{result.projectedRate || result.projectedSavings || result.projectedIncrease}%</div>
+                      <div className="text-xl font-bold text-simcity-green">{getProjectedValue()}</div>
                     </div>
                   </div>
                   
